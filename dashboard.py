@@ -104,7 +104,7 @@ plt.grid(True)
 st.pyplot(fig)
 
 ## Jumlah penyewaan per musim
-st.subheader("Total Bike Sharisng per Season")
+st.subheader("Total Bike Sharing per Season")
 season_names = {
     1: "Springer", 2: "Summer", 3: "Fall", 4: "Winter"
 }
@@ -114,6 +114,22 @@ season_counts.index = season_counts.index.map(season_names)
 fig, ax = plt.subplots(figsize=(10, 5))
 sns.barplot(x=season_counts.index, y=season_counts.values, color="#1f77b4")
 plt.xlabel("Season")
+plt.ylabel("Total Rental Bikes")
+plt.ticklabel_format(style='plain', axis='y')
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+st.pyplot(fig)
+
+## Jumlah penyewaan per hari
+st.subheader("Total Daily Bike Sharing")
+day_names = {
+    0: "Mon", 1: "Tue", 2: "Wed", 3: "Thu", 4: "Fri", 5: "Sat", 6: "Sun" 
+}
+daily_counts = df_bike_day.groupby('weekday', observed=True)['cnt'].sum()
+daily_counts.index = daily_counts.index.map(day_names)
+
+fig, ax = plt.subplots(figsize=(10, 5))
+sns.barplot(x=daily_counts.index, y=daily_counts.values, color="#1f77b4")
+plt.xlabel("Day")
 plt.ylabel("Total Rental Bikes")
 plt.ticklabel_format(style='plain', axis='y')
 plt.grid(axis="y", linestyle="--", alpha=0.7)
